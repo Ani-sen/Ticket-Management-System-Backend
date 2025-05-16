@@ -1,5 +1,5 @@
 const express = require('express');
-const { createTicket, getTickets, addComment, updateStatus, deleteTicket, editTicket } = require('../controllers/ticketController');
+const { createTicket, getTickets, addComment, updateStatus, deleteTicket, editTicket, getSingleTicketByAdmin } = require('../controllers/ticketController');
 const protect = require('../middlewares/auth');
 const checkRole = require('../middlewares/role');
 const router = express.Router();
@@ -10,5 +10,6 @@ router.post('/:ticketId/comments', protect,checkRole("admin"), addComment); // �
 router.patch('/:ticketId/status', protect,checkRole("admin"), updateStatus); // 👈 Status update
 router.delete('/:ticketId', protect, checkRole('admin'), deleteTicket);
 router.patch('/:ticketId', protect, editTicket); // 👈 Edit ticket route
+router.get('/admin/:ticketId', protect, checkRole('admin'), getSingleTicketByAdmin);
 
 module.exports = router;

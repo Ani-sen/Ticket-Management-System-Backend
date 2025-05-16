@@ -96,3 +96,23 @@ exports.deleteTicket = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+exports.getSingleTicketByAdmin = async (req, res) => {
+  const { ticketId } = req.params;
+
+  try {
+    const ticket = await Ticket.findById(ticketId)
+      .populate('createdBy', 'name email') // Optional: Populate creator info
+      .populate('comments.commentedBy', 'name email'); // Optional: Populate commenter info
+
+    if (!ticket) {
+      return res.status(404).json({ message: 'Ticket not found' });
+    }
+
+    res.status(200).json(ticket);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
