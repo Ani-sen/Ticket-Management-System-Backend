@@ -116,3 +116,15 @@ exports.getSingleTicketByAdmin = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
+
+exports.getUserTickets = async (req, res) => {
+  try {
+    const tickets = await Ticket.find({ createdBy: req.user.id }).sort({ createdAt: -1 });
+
+    res.status(200).json(tickets);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
