@@ -10,7 +10,7 @@ router.post('/:ticketId/comments', protect,checkIsAdmin, addComment); // 👈 Ad
 router.patch('/:ticketId/status', protect,checkIsAdmin, updateStatus); // 👈 Status update
 router.delete('/:ticketId', protect, checkIsAdmin, deleteTicket);
 router.patch('/:ticketId', protect, editTicket); // 👈 Edit ticket route
-router.get('/admin/:ticketId', protect, getSingleTicketByAdmin);
+router.get('/:ticketId', protect, getSingleTicketByAdmin);
 router.get('/my-tickets', protect, getUserTickets);
 
 module.exports = router;
