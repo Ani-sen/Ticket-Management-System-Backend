@@ -120,8 +120,10 @@ exports.getSingleTicketByAdmin = async (req, res) => {
 
 exports.getUserTickets = async (req, res) => {
   try {
+  
     const tickets = await Ticket.find({ createdBy: req.user.id }).sort({ createdAt: -1 });
 
+    console.log(tickets)
     res.status(200).json(tickets);
   } catch (err) {
     console.error(err);
